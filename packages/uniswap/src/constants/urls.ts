@@ -204,5 +204,9 @@ function getServicePrefix(flow?: TrafficFlows): string {
 }
 
 function getCloudflareApiBaseUrl(flow?: TrafficFlows): string {
-  return `https://${getServicePrefix(flow)}${getCloudflarePrefix(flow)}.gateway.uniswap.org`
+  let url = `https://${getServicePrefix(flow)}${getCloudflarePrefix(flow)}.gateway.uniswap.org`
+  // if (url === 'https://trading-api-labs.interface.gateway.uniswap.org') {
+  //   url = `https://cors-header-proxy.alirezarzna.workers.dev/corsproxy/?apiurl=${url}`
+  // }
+  return url
 }

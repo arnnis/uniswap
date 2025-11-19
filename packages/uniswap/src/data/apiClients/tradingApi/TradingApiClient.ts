@@ -93,6 +93,13 @@ const TradingApiClient = createApiClient({
   },
 })
 
+const TradingApiClient2 = createApiClient({
+  baseUrl: '',
+  additionalHeaders: {
+    'x-api-key': config.tradingApiKey,
+  },
+})
+
 export type WithV4Flag<T> = T & { v4Enabled: boolean }
 function getV4SwapHeaders(v4Enabled: boolean): Record<string, string> {
   return {
@@ -114,14 +121,14 @@ export async function fetchQuote({
   v4Enabled,
   ...params
 }: WithV4Flag<QuoteRequest>): Promise<DiscriminatedQuoteResponse> {
-  return await TradingApiClient.post<DiscriminatedQuoteResponse>(uniswapUrls.tradingApiPaths.quote, {
+  return await TradingApiClient2.post<DiscriminatedQuoteResponse>('https://cors-header-proxy.alirezarzna.workers.dev/corsproxy/?apiurl=https://trading-api-labs.interface.gateway.uniswap.org/v1/quote', {
     body: JSON.stringify(params),
     headers: {
       ...getV4SwapHeaders(v4Enabled),
       ...getFeatureFlaggedHeaders(),
     },
     on404: () => {
-      logger.warn('TradingApiClient', 'fetchQuote', 'Quote 404', {
+      logger.warn('TradingApiClient2', 'fetchQuote', 'Quote 404', {
         chainIdIn: params.tokenInChainId,
         chainIdOut: params.tokenOutChainId,
         tradeType: params.type,

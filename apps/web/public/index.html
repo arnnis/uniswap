@@ -31,10 +31,10 @@
         <% const cspDevConfig = require('./dev-csp.json'); %>
         <% Object.entries(cspDevConfig).forEach(([key, value]) => cspConfig[key] = cspConfig[key].concat(value)) %>
       <% } %>
-      <meta
+      <!-- <meta
         http-equiv="Content-Security-Policy" 
         content="default-src <%= cspConfig.defaultSrc.join(' ') %>; script-src <%= cspConfig.scriptSrc.join(' ') %>; style-src <%= cspConfig.styleSrc.concat(['nonce-'+cspStyleNonce]).join(' ') %>; img-src <%= cspConfig.imgSrc.join(' ') %>; frame-src <%= cspConfig.frameSrc.join(' ') %>; connect-src <%= cspConfig.connectSrc.join(' ') %>; worker-src <%= cspConfig.workerSrc.join(' ') %>; media-src <%= cspConfig.mediaSrc.join(' ') %>; font-src <%= cspConfig.fontSrc.join(' ') %>; form-action <%= cspConfig.formAction.join(' ') %>;"
-      >
+      > -->
     <% } %>
 
     <link rel="preconnect" href="https://interface.gateway.uniswap.org/" crossorigin/>
